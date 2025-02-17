@@ -1,0 +1,26 @@
+{
+  "name": "cleanblog",
+  "version": "1.0.0",
+  "description": "side blog project for learning node js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CanerOren/Clean-Blog.git"
+  },
+  "keywords": [
+    "blog",
+    "node"
+  ],
+  "author": "Caner Oren",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CanerOren/Clean-Blog/issues"
+  },
+  "homepage": "https://github.com/CanerOren/Clean-Blog#readme",
+  "devDependencies": {
+    "prettier": "3.5.1"
+  }
+}
