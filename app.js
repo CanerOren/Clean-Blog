@@ -3,11 +3,14 @@ import express from 'express';
 import ejs from 'ejs'
 // const ejs = require('ejs');
 import mongoose from 'mongoose';
+import methodOverride from 'method-override';
 
 import path from 'path';
 // const path = require('path');
 
 import Post from './models/Post.js';
+import { getAllPosts,getPost,createPost,updatePost,deletePost } from './controllers/postControllers.js';
+import { getAboutPage, getAddPage,getEditPage } from './controllers/pageControllers.js';
 
 const app = express();
 
@@ -23,38 +26,28 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+app.use(methodOverride('_method',{
+  methods:['POST','GET']
+}));
 
 //ROUTES
-app.get('/', async (req, res) => {
-  const posts = await Post.find({});
-  res.render('index',{
-    posts
-  });
-});
+app.get('/', getAllPosts);
 
-app.get('/posts/:id', async (req,res)=>{
-  const post = await Post.findById(req.params.id);
-  res.render('post',{
-    post
-  });
-});
+app.get('/posts/:id', getPost);
 
-app.get('/about', (req, res) => {
-  res.render('about');
-});
+app.get('/about',getAboutPage );
 
-app.get('/add_post', (req, res) => {
-  res.render('add_post');
-});
+app.get('/add_post', getAddPage);
 
-app.get('/post',(req,res)=>{
-  res.render('post');
-});
 
-app.post('/posts',async(req,res)=>{
-  await Post.create(req.body);
-  res.redirect('/');
-})
+
+app.get('/posts/edit/:id', getEditPage);
+
+app.post('/posts',createPost);
+
+app.put('/posts/:id', updatePost);
+
+app.delete('/posts/:id',deletePost);
 
 const port = 3001;
 app.listen(port, () => {
